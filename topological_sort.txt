@@ -1,0 +1,68 @@
+1. Basic topological sort 
+
+g = {1:[2,3], 
+	2:[4,5],
+	3:[6]]}
+	
+indegree = {1:0,2:0,3:0,4:0,5:0,6:0}
+
+queue = { }
+
+Sorted {1,2,3,4,5,6}
+
+#Steps for topological sorting :
+1. Create a adjacency list for the graph 
+2. Maintain indegree map , which has the node to number of indegree mapping 
+3. maintain a queue to put the sources (sources means , whoseever indegree is 0 , we will push it to the queue ) 
+
+Perform the below steps until queue is not empty 
+1. remove the element from the queue 
+2. put it in sorted list (result)
+3. decrement the indegree of all the children of the poped element 
+4. if any children's indegree becomes 0 , add it to the queue
+
+
+topologicalSort(int v, vector<vector<int>>edges = [[1,2],[2,3])
+{
+	//initializing the graph 
+	unordered_map<int, vector<int>> graph;
+	unordereded_map<int, int> indegree;
+	for(int i = 0; i < v; i++){
+		graph[i] = vector<int>();
+		indegree[i] = 0;
+	}
+	
+	//we have to create the graph and populate indegree 
+	for(int i = 0; i < edges.size(); i++){
+		int parent = graph[i][0];
+		int child = grpah[i][1];
+		graph[parent].push_back(child);
+		indegree[child]++;
+	}
+	queue<int> sources;
+	//find the source which has 0 indegree and put it in queue 
+	for(auto index : indegree){
+		if(indgree[index] == 0)
+		{
+			sources.push(index);
+		}
+	}
+	vector<int> result;
+	//sort while the queue is not empty
+	while(not sources.empty())
+	{
+		int vertex = source.front();
+		source.pop();
+		result.push_back(vertex);
+		vector<int> children;
+		for(auto child : graph[vertex])
+		{
+			indegree[child]--;
+			if(indegree[child] == 0)
+			{
+			   sources.push(child);
+			}
+		}
+	}
+	return result;
+}
